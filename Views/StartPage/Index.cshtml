@@ -8,7 +8,8 @@
 
 <img src="@Url.ContentUrl(Model.CurrentPage.Image)"/> 
 
- @Html.PropertyFor(x => x.CurrentPage.Carousel)
+ @await Component.InvokeAsync("Carousel")
+ 
  *@
 
- @await Component.InvokeAsync("Carousel")
+@Html.PropertyFor(x => x.CurrentPage.Carousel)

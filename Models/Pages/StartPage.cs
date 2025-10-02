@@ -1,4 +1,5 @@
 ﻿using cms_episerver.Business;
+using cms_episerver.Models.Blocks;
 using EPiServer.Web;
 using System.ComponentModel.DataAnnotations;
 
@@ -47,7 +48,7 @@ namespace cms_episerver.Models.Pages
            Order = 50
            )]
         [CultureSpecific]
-        [AllowedTypes(typeof(CarouselPage))]
+        [AllowedTypes(typeof(CarouselPage), typeof(CarouselBlock))]
         public virtual ContentArea Carousel { get; set; }
     }
 }
