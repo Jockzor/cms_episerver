@@ -1,0 +1,14 @@
+﻿@using EPiServer.Web.Mvc.Html
+@using cms_episerver.Models.ViewModels
+@model StartPageViewModel
+
+@* <h1>@Html.Raw(Model.CurrentPage.Heading)</h1>
+<h2>@Html.PropertyFor(x => x.CurrentPage.Preamble)</h2>
+<p>@Html.Raw(Model.CurrentPage.Mainbody)</p>
+
+<img src="@Url.ContentUrl(Model.CurrentPage.Image)"/> 
+
+ @Html.PropertyFor(x => x.CurrentPage.Carousel)
+ *@
+
+ @await Component.InvokeAsync("Carousel")

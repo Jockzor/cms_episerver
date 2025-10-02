@@ -1,4 +1,7 @@
+using cms_episerver.Business.Services;
+using cms_episerver.Business.Services.Interfaces;
 using EPiServer.Cms.Shell;
+using EPiServer.Cms.Shell.UI.Configurations;
 using EPiServer.Cms.UI.AspNetIdentity;
 using EPiServer.Scheduler;
 using EPiServer.ServiceLocation;
@@ -14,6 +17,13 @@ namespace cms_episerver
         {
             _webHostingEnvironment = webHostingEnvironment;
         }
+        public static IConfiguration Configuration { get; } =
+    new ConfigurationBuilder()
+        .AddJsonFile("appSettings.json", false, true)
+        .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true, true)
+        .AddJsonFile($"appsettings.{Environment.MachineName}.json", true, true)
+        .AddEnvironmentVariables()
+        .Build();
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -29,6 +39,10 @@ namespace cms_episerver
                 .AddCms()
                 .AddAdminUserRegistration()
                 .AddEmbeddedLocalization<Startup>();
+
+            services.Configure<UploadOptions>(x => { x.FileSizeLimit = 52428800; });
+            services.AddScoped<IDescendantService, DescendantService>();
+       
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
